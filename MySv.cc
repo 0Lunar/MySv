@@ -34,13 +34,13 @@ int main() {
     time << tempo.wHour << ":" << tempo.wMinute << ":" << tempo.wSecond;
 
     system("cls");
-    cout << " ____________________________________________________________________________________" << endl;
-    cout << "||                                                                                  ||" << endl;
-    cout << "||                                    System Info                                   ||" << endl << endl;
-    system("systeminfo");
+    system("call src/Sysinfo.bat");
+    system("pause && cls");
+    system("call src/kill.bat");
+    system("pause && cls");
     cout << "[" << time.str() << "]" << "  Tool started" << endl;
     cout << "[" << time.str() << "]" << "  Creating restore point" << endl;
-    system("cd src & start restore_point.bat & cd ..");
+    system("call src/restore_point.bat");
     cout << "[" << time.str() << "]" << "  Done" << endl;
     cout << "[" << time.str() << "]" << "  Checking disk integrity..." << endl;
     system("chkdsk C: /F /r");
@@ -53,13 +53,16 @@ int main() {
     system("mkdir C:\\Users\\MySv_AppData");
     cout << "[" << time.str() << "]" << "  Done" << endl;
     cout << "[" << time.str() << "]" << "  Running Rkill" << endl;
-    system("cd scan_tools & start rkill.exe & cd ..");
+    system("call scan_tools/rkill.exe");
     cout << "[" << time.str() << "]" << "  Done" << endl;
     cout << "[" << time.str() << "]" << "  Running Windows Defender scan" << endl;
-    system("cd src & start Win_Def_scan.bat & cd ..");
-    cout << "[" << time.str() << "]" << "  Opening Malwarebytes setup" << endl;
-    system("cd scan_tools & start MBSetup.exe & cd ..");
-    cout << "[" << time.str() << "]" << "  Done" << endl;
+    system("call src/Win_Def_scan.bat");
     cout << "[" << time.str() << "]" << "  Running malwarebytes scan" << endl;
     system("cd scan_tools & mbstcmd-1.0.12.251.exe /y /cleanup /noreboot /nopr /dev");
+    cout << "[" << time.str() << "]" << "  Done" << endl;
+    cout << "[" << time.str() << "]" << "  Running cleanmgr" << endl;
+    cout << "          pres ok when the scan finished" << endl;
+    system("call cleanmgr");
+    cout << "[" << time.str() << "]" << "  Done" << endl;
+    system("echo. & pause");
 }
